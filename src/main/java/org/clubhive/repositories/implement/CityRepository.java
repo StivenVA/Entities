@@ -1,7 +1,7 @@
 package org.clubhive.repositories.implement;
 
 
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.CityEntity;
 import org.clubhive.model.City;
@@ -21,12 +21,12 @@ public class CityRepository {
     public City findByName(String name) {
 
         if (name == null)
-            throw new ClubhiveException("City name must not be null", HttpStatus.BAD_REQUEST);
+            throw new NoBugsException("City name must not be null", HttpStatus.BAD_REQUEST);
 
         CityEntity city = cityRepositoryJpa.findByName(name);
 
         if (city == null) {
-            throw new ClubhiveException("City not found", HttpStatus.NOT_FOUND);
+            throw new NoBugsException("City not found", HttpStatus.NOT_FOUND);
         }
 
         return GenericMapper.map(city, City.class);

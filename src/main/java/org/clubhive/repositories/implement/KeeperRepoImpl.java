@@ -1,6 +1,6 @@
 package org.clubhive.repositories.implement;
 
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.KeeperEntity;
 import org.clubhive.entities.OrganizerEntity;
@@ -31,7 +31,7 @@ public class KeeperRepoImpl implements UserRepositoryImplementation<Keeper> {
             if (keeperToUpdate == null)
                 throw new NullPointerException();
         } catch (Exception e) {
-            throw new ClubhiveException("Keeper not found", HttpStatus.NOT_FOUND);
+            throw new NoBugsException("Keeper not found", HttpStatus.NOT_FOUND);
         }
 
         keeperToUpdate.setPhone(model.getPhone() == null ? keeperToUpdate.getPhone() : model.getPhone());
@@ -60,6 +60,6 @@ public class KeeperRepoImpl implements UserRepositoryImplementation<Keeper> {
     }
 
     public Keeper findById(Long id){
-        return GenericMapper.map(keeperRepository.findById(id).orElseThrow(()->new ClubhiveException("Keeper not found", HttpStatus.NOT_FOUND)),Keeper.class);
+        return GenericMapper.map(keeperRepository.findById(id).orElseThrow(()->new NoBugsException("Keeper not found", HttpStatus.NOT_FOUND)),Keeper.class);
     }
 }

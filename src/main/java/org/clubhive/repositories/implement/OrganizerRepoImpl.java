@@ -2,7 +2,7 @@ package org.clubhive.repositories.implement;
 
 
 
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.OrganizerEntity;
 import org.clubhive.model.Organizer;
@@ -54,6 +54,6 @@ public class OrganizerRepoImpl implements UserRepositoryImplementation<Organizer
 
     public Organizer findById(Long id){
 
-        return GenericMapper.map(organizerRepository.findById(id).orElseThrow(()->new ClubhiveException("Organizer not found", HttpStatus.NOT_FOUND)),Organizer.class);
+        return GenericMapper.map(organizerRepository.findById(id).orElseThrow(()->new NoBugsException("Organizer not found", HttpStatus.NOT_FOUND)),Organizer.class);
     }
 }

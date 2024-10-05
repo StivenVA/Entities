@@ -1,6 +1,6 @@
 package org.clubhive.repositories.implement;
 
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.EventEntity;
 import org.clubhive.entities.PromoterEntity;
@@ -29,10 +29,10 @@ public class PromoterRepository {
         if (promoter.getEventId() != null) {
             try {
                 if (!eventRepositoryJpa.existsById(promoter.getEventId())) {
-                    throw new ClubhiveException("Event not found", HttpStatus.NOT_FOUND);
+                    throw new NoBugsException("Event not found", HttpStatus.NOT_FOUND);
                 }
             } catch (Exception e) {
-                throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+                throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
             eventEntity = eventRepositoryJpa.findById(promoter.getEventId()).orElseThrow();
         }
@@ -41,16 +41,16 @@ public class PromoterRepository {
 
         try {
             if (promoterRepositoryJpa.findByCode(promoter.getCode()) != null) {
-                throw new ClubhiveException("Promoter already exists", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Promoter already exists", HttpStatus.BAD_REQUEST);
             }
             if (promoter.getCode() == null) {
-                throw new ClubhiveException("Promoter code must not be null", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Promoter code must not be null", HttpStatus.BAD_REQUEST);
             }
             if (promoter.getEventId() == null) {
-                throw new ClubhiveException("Event id must not be null", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Event id must not be null", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         promoterEntity.setCode(promoter.getCode());
@@ -67,11 +67,11 @@ public class PromoterRepository {
         try {
             promoterFounded = promoterRepositoryJpa.findById(id).orElse(null);
             if (promoterFounded == null) {
-                throw new ClubhiveException("Promoter not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Promoter not found", HttpStatus.NOT_FOUND);
             }
 
         } catch (Exception e) {
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return PromoterMapper.entityToModel(promoterRepositoryJpa.findById(id).orElseThrow());
@@ -80,24 +80,24 @@ public class PromoterRepository {
     public Promoter update(Promoter promoter) {
         try {
             if (!promoterRepositoryJpa.existsById(promoter.getId())) {
-                throw new ClubhiveException("Promoter not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Promoter not found", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         try {
             if (promoterRepositoryJpa.findByCode(promoter.getCode()) != null) {
-                throw new ClubhiveException("Promoter already exists", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Promoter already exists", HttpStatus.BAD_REQUEST);
             }
             if (promoter.getCode() == null) {
-                throw new ClubhiveException("Promoter code must not be null", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Promoter code must not be null", HttpStatus.BAD_REQUEST);
             }
             if (promoter.getEventId() == null) {
-                throw new ClubhiveException("Event id must not be null", HttpStatus.BAD_REQUEST);
+                throw new NoBugsException("Event id must not be null", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         PromoterEntity promoterEntity = promoterRepositoryJpa.findById(promoter.getId()).orElseThrow();
         promoterEntity.setCode(promoter.getCode());
@@ -108,10 +108,10 @@ public class PromoterRepository {
     public void delete(Long id) {
         try {
             if (!promoterRepositoryJpa.existsById(id)) {
-                throw new ClubhiveException("Promoter not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Promoter not found", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         promoterRepositoryJpa.deleteById(id);
     }

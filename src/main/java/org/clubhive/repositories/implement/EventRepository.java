@@ -1,7 +1,7 @@
 package org.clubhive.repositories.implement;
 
 import FindUser.FindUser;
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.EventEntity;
 import org.clubhive.entities.OrganizerEntity;
@@ -35,30 +35,30 @@ public class EventRepository {
 
     public List<Event> findAllByOrgnz(String id){
 
-        FindUser<Organizer,String> findOrganizer = (organizer) -> organizerRepository.findAll().stream().filter(org -> org.getOrganizerId().equals(organizer)).findFirst().orElseThrow(()->new ClubhiveException("Organizer not found", HttpStatus.NOT_FOUND));
+        FindUser<Organizer,String> findOrganizer = (organizer) -> organizerRepository.findAll().stream().filter(org -> org.getOrganizerId().equals(organizer)).findFirst().orElseThrow(()->new NoBugsException("Organizer not found", HttpStatus.NOT_FOUND));
 
         Organizer organizer = findOrganizer.findBy(id);
 
         if (organizer == null)
-            throw new ClubhiveException("Organizer not found", HttpStatus.NOT_FOUND);
+            throw new NoBugsException("Organizer not found", HttpStatus.NOT_FOUND);
 
         return EventMapper.mapEventEntityListToEventList(eventRepositoryJpa.findAllByOrgnzId(id));
     }
 
     public Event findById(Long id) {
         if (id == null)
-            throw new ClubhiveException("Id must not be null", HttpStatus.BAD_REQUEST);
+            throw new NoBugsException("Id must not be null", HttpStatus.BAD_REQUEST);
 
         EventEntity eventFounded = null;
         try {
              eventFounded = eventRepositoryJpa.findById(id).orElse(null);
             if (eventFounded == null) {
-                throw new ClubhiveException("Event not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Event not found", HttpStatus.NOT_FOUND);
             }
 
         }
         catch (Exception e){
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return EventMapper.mapEventEntityToEventModel(eventFounded);
@@ -66,18 +66,18 @@ public class EventRepository {
 
     public Event findByIdAndSubject(Long id,String subject){
         if (id == null || subject == null)
-            throw new ClubhiveException("Id and subject must not be null", HttpStatus.BAD_REQUEST);
+            throw new NoBugsException("Id and subject must not be null", HttpStatus.BAD_REQUEST);
 
         EventEntity eventFounded = null;
 
         try {
             eventFounded = eventRepositoryJpa.findByIdAndAndOrgnzId(id, subject);
             if (eventFounded == null) {
-                throw new ClubhiveException("Event not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Event not found", HttpStatus.NOT_FOUND);
             }
         }
         catch (Exception e){
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return EventMapper.mapEventEntityToEventModel(eventFounded);
@@ -91,11 +91,11 @@ public class EventRepository {
             events = eventRepositoryJpa.filterEvents(search);
 
             if (events.isEmpty()) {
-                throw new ClubhiveException("Events not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Events not found", HttpStatus.NOT_FOUND);
             }
 
         }catch (Exception e){
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return EventMapper.mapEventEntityListToEventList(events);

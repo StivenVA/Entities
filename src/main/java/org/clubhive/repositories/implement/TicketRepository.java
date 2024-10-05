@@ -1,7 +1,7 @@
 package org.clubhive.repositories.implement;
 
 
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.TicketEntity;
 import org.clubhive.model.Event;
@@ -25,7 +25,7 @@ public class TicketRepository {
 
         Event event = eventRepository.findById(Long.valueOf(ticket.getIdEvent()));
         if (event == null) {
-            throw new ClubhiveException("Event not found", HttpStatus.NOT_FOUND);
+            throw new NoBugsException("Event not found", HttpStatus.NOT_FOUND);
         }
 
         TicketEntity ticketEntity = TicketMapper.modelToEntity(ticket);
@@ -43,11 +43,11 @@ public class TicketRepository {
         try {
              ticketFounded = ticketRepositoryJpa.findById(id).orElse(null);
             if (ticketFounded == null) {
-                throw new ClubhiveException("Ticket not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Ticket not found", HttpStatus.NOT_FOUND);
             }
         }
         catch (Exception e){
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return TicketMapper.entityToModel(ticketFounded);
@@ -72,10 +72,10 @@ public class TicketRepository {
             tickets = ticketRepositoryJpa.findAllByEventId(Long.valueOf(idEvent));
 
             if (tickets.isEmpty()) {
-                throw new ClubhiveException("Tickets not found", HttpStatus.NOT_FOUND);
+                throw new NoBugsException("Tickets not found", HttpStatus.NOT_FOUND);
             }
         }catch (Exception e){
-            throw new ClubhiveException(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new NoBugsException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
         return tickets.stream().map(TicketMapper::entityToModel).toList();

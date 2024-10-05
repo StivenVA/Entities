@@ -1,7 +1,7 @@
 package org.clubhive.repositories.implement;
 
 import FindUser.FindUser;
-import exceptions.ClubhiveException;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.UserEntity;
 import org.clubhive.model.Customer;
@@ -29,7 +29,7 @@ public class CustomerRepoImpl implements UserRepositoryImplementation<Customer> 
     @Override
     public Customer update(Customer customer){
 
-        FindUser<UserEntity,String> findByUserId = (userId)-> customerRepository.findAll().stream().filter(userEntity -> userEntity.getUserId().equals(userId)).findFirst().orElseThrow(()->new ClubhiveException("User not found", HttpStatus.NOT_FOUND));
+        FindUser<UserEntity,String> findByUserId = (userId)-> customerRepository.findAll().stream().filter(userEntity -> userEntity.getUserId().equals(userId)).findFirst().orElseThrow(()->new NoBugsException("User not found", HttpStatus.NOT_FOUND));
 
         UserEntity userEntity = findByUserId.findBy(customer.getCustomerId());
 
