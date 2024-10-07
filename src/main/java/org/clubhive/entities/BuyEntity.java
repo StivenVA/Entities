@@ -24,6 +24,10 @@ public class BuyEntity {
     @Column(name = "state_buy")
     boolean state;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BuyTicketStatus stateBuy;
+
     @JoinColumn(name = "owner_buy")
     @ManyToOne(fetch = FetchType.EAGER)
     UserEntity owner;

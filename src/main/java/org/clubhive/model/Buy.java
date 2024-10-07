@@ -16,4 +16,5 @@ public class Buy {
         private boolean state;
         private Customer owner;
         private Promoter idPromoter;
+        private String stateBuy;
 }
