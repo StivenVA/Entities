@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.github.StivenVA</groupId>
             <artifactId>Exceptions</artifactId>
-            <version>f14424fd57</version>
+            <version>main-SNAPSHOT</version>
 
         </dependency>
 
