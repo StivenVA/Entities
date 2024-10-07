@@ -15,14 +15,15 @@ import lombok.Setter;
 public class BuyEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_buy")
-    long id;
+    private long id;
 
     @Column(name = "qr_buy")
-    String qr;
+    private String qr;
 
     @Column(name = "state_buy")
-    boolean state;
+    private boolean state;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -30,9 +31,12 @@ public class BuyEntity {
 
     @JoinColumn(name = "owner_buy")
     @ManyToOne(fetch = FetchType.EAGER)
-    UserEntity owner;
+    private UserEntity owner;
 
     @JoinColumn(name = "id_promoter")
     @ManyToOne(fetch = FetchType.EAGER)
-    PromoterEntity idPromoter;
+    private PromoterEntity idPromoter;
+
+    @Column(name = "reference_buy")
+    private String reference;
 }

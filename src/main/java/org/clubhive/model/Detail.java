@@ -12,9 +12,8 @@ import lombok.Setter;
 @Setter
 public class Detail {
 
-    long id;
+    Long id;
     Ticket idTicket;
     int quantity;
-    Buy idBuy;
 
 }

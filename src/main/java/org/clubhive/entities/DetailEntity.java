@@ -16,16 +16,16 @@ public class DetailEntity {
 
     @Id
     @Column(name = "id_details")
-    long id;
+    private long id;
 
     @JoinColumn(name = "id_ticket")
     @ManyToOne(fetch = FetchType.EAGER)
-    TicketEntity idTicket;
+    private TicketEntity idTicket;
 
     @Column(name = "quantity")
-    int quantity;
+    private int quantity;
 
     @JoinColumn(name = "id_buy")
     @ManyToOne(fetch = FetchType.EAGER)
-    BuyEntity idBuyEntity;
+    private BuyEntity idBuyEntity;
 }
