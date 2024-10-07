@@ -15,5 +15,5 @@ public class Detail {
     Long id;
     Ticket idTicket;
     int quantity;
-
+    Buy idBuy;
 }

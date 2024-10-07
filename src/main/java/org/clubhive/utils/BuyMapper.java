@@ -9,7 +9,7 @@ import org.clubhive.model.Customer;
 public class BuyMapper {
 
     public static Buy mapToBuy(BuyEntity buy){
-        return new Buy(buy.getId(), buy.getQr(), buy.isState(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name());
+        return new Buy(buy.getId(), buy.getQr(), buy.isState(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null);
     }
 
     public static BuyEntity mapToBuyEntity(Buy buy){
@@ -17,7 +17,7 @@ public class BuyMapper {
         BuyEntity buyEntity = new BuyEntity();
         buyEntity.setId(buy.getId());
         buyEntity.setQr(buy.getQr());
-        buyEntity.setState(buy.isState());
+        buyEntity.setState(buy.getState());
         buyEntity.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
         buyEntity.setIdPromoter(PromoterMapper.modelToEntity(buy.getIdPromoter()));
         buyEntity.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
