@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class BuyDTO {
 
-    private long id;
+    private Long id;
     private String qr;
-    private boolean state;
+    private Boolean state;
     private UserResponseDTO owner;
     private PromoterDTO idPromoter;
     private String stateBuy;
