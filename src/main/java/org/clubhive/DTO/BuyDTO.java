@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -15,11 +16,12 @@ public class BuyDTO {
 
     private Long id;
     private String qr;
-    private Boolean state;
+    private Boolean claim;
     private UserResponseDTO owner;
     private PromoterDTO idPromoter;
     private String stateBuy;
     private String reference;
     private Double total;
     private List<DetailDTO> details;
+    private Timestamp date;
 }

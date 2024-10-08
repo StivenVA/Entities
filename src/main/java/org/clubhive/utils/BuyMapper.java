@@ -18,7 +18,7 @@ public class BuyMapper {
 
         buyDTO.setId(buy.getId());
         buyDTO.setQr(buy.getQr());
-        buyDTO.setState(buy.getState());
+        buyDTO.setClaim(buy.getClaim());
         buyDTO.setOwner(GenericMapper.map(buy.getOwner(), UserResponseDTO.class));
         buyDTO.setIdPromoter(PromoterMapper.modelToDTO(buy.getIdPromoter()));
         buyDTO.setStateBuy(buy.getStateBuy());
@@ -34,19 +34,20 @@ public class BuyMapper {
 
         buy.setId(buyDTO.getId());
         buy.setQr(buyDTO.getQr());
-        buy.setState(buyDTO.getState());
+        buy.setClaim(buyDTO.getClaim());
         buy.setOwner(GenericMapper.map(buyDTO.getOwner(), Customer.class));
         buy.setIdPromoter(GenericMapper.map(buyDTO.getIdPromoter(), Promoter.class));
         buy.setStateBuy(buyDTO.getStateBuy());
         buy.setReference(buyDTO.getReference());
         buy.setDetails(GenericMapper.mapList(buyDTO.getDetails(), Detail.class));
         buy.setTotal(buyDTO.getTotal());
+        buy.setDate(buyDTO.getDate());
 
         return buy;
     }
 
     public static Buy mapToBuy(BuyEntity buy){
-        return new Buy(buy.getId(), buy.getQr(), buy.isState(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null,buy.getTotal());
+        return new Buy(buy.getId(), buy.getQr(), buy.isClaim(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null,buy.getTotal(),buy.getDate());
     }
 
     public static BuyEntity mapToBuyEntity(Buy buy){
@@ -54,12 +55,13 @@ public class BuyMapper {
         BuyEntity buyEntity = new BuyEntity();
         buyEntity.setId(buy.getId());
         buyEntity.setQr(buy.getQr());
-        buyEntity.setState(buy.getState());
+        buyEntity.setClaim(buy.getClaim());
         buyEntity.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
         buyEntity.setIdPromoter(PromoterMapper.modelToEntity(buy.getIdPromoter()));
         buyEntity.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
         buyEntity.setReference(buy.getReference());
         buyEntity.setTotal(buy.getTotal());
+        buyEntity.setDate(buy.getDate());
 
         return buyEntity;
     }

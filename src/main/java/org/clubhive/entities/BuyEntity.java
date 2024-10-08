@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Entity
 @Getter
 @Setter
@@ -22,11 +24,11 @@ public class BuyEntity {
     @Column(name = "qr_buy")
     private String qr;
 
-    @Column(name = "state_buy")
-    private boolean state;
+    @Column(name = "claim_buy")
+    private boolean claim;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "state_buy", nullable = false)
     private BuyTicketStatus stateBuy;
 
     @JoinColumn(name = "owner_buy")
@@ -42,4 +44,7 @@ public class BuyEntity {
 
     @Column(name = "total_buy")
     private Double total;
+
+    @Column(name = "date_buy")
+    private Timestamp date;
 }
