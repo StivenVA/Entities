@@ -35,8 +35,7 @@ public class DetailRepository {
 
        FindUser<List<DetailEntity>,String> findByQr =
                (qrCode) -> detailRepository.findAll().stream()
-               .filter(d->d.getIdBuyEntity().getQr().equals(qrCode))
-               .toList();
+               .filter(d->d.getIdBuyEntity().getQr().equals(qrCode)).toList();
 
        return findByQr.findBy(qr).stream().map(DetailMapper::mapToDetail).toList();
     }
