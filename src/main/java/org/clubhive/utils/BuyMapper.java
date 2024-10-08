@@ -40,12 +40,13 @@ public class BuyMapper {
         buy.setStateBuy(buyDTO.getStateBuy());
         buy.setReference(buyDTO.getReference());
         buy.setDetails(GenericMapper.mapList(buyDTO.getDetails(), Detail.class));
+        buy.setTotal(buyDTO.getTotal());
 
         return buy;
     }
 
     public static Buy mapToBuy(BuyEntity buy){
-        return new Buy(buy.getId(), buy.getQr(), buy.isState(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null);
+        return new Buy(buy.getId(), buy.getQr(), buy.isState(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null,buy.getTotal());
     }
 
     public static BuyEntity mapToBuyEntity(Buy buy){
@@ -57,6 +58,8 @@ public class BuyMapper {
         buyEntity.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
         buyEntity.setIdPromoter(PromoterMapper.modelToEntity(buy.getIdPromoter()));
         buyEntity.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
+        buyEntity.setReference(buy.getReference());
+        buyEntity.setTotal(buy.getTotal());
 
         return buyEntity;
     }

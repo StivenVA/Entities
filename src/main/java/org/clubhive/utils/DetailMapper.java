@@ -10,6 +10,7 @@ public class DetailMapper {
 
     private final DetailRepositoryJpa detailRepositoryJpa;
 
+
     public static Detail mapToDetail(DetailEntity detail){
         return new Detail(detail.getId(), TicketMapper.entityToModel(detail.getIdTicket()), detail.getQuantity(),null);
     }

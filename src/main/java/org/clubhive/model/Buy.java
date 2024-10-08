@@ -21,4 +21,5 @@ public class Buy {
         private String stateBuy;
         private String reference;
         private List<Detail> details;
+        private Double total;
 }

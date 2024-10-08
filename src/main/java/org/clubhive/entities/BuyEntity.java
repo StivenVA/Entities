@@ -39,4 +39,7 @@ public class BuyEntity {
 
     @Column(name = "reference_buy")
     private String reference;
+
+    @Column(name = "total_buy")
+    private Double total;
 }

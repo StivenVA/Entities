@@ -20,5 +20,6 @@ public class BuyDTO {
     private PromoterDTO idPromoter;
     private String stateBuy;
     private String reference;
+    private Double total;
     private List<DetailDTO> details;
 }
