@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Customer extends User{
     private String phone;
-    private String customerId;
+    private String userId;
 }
 

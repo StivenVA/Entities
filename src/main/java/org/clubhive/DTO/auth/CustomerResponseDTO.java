@@ -13,7 +13,7 @@ import org.clubhive.DTO.UserResponseDTO;
 public class CustomerResponseDTO extends UserResponseDTO {
 
     private long id;
-    private String customerId;
+    private String userId;
     private String dni;
     private String phone;
 }

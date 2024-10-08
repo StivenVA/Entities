@@ -16,6 +16,7 @@ public class UserEntity {
 
     @Id
     @Column(name="id_user")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "dni_user")
     private String dni;
