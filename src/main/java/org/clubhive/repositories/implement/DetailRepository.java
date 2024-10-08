@@ -8,6 +8,7 @@ import org.clubhive.repositories.jpa.DetailRepositoryJpa;
 import org.clubhive.utils.DetailMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -18,18 +19,26 @@ public class DetailRepository {
     private final DetailRepositoryJpa detailRepository;
 
     public Detail save(Detail detail) {
-        return Stream.of(detailRepository.save(DetailMapper.mapToDetailEntity(detail))).map(DetailMapper::mapToDetail).findFirst().orElse(null);
+        return DetailMapper
+                .mapToDetail(detailRepository.save(DetailMapper.mapToDetailEntity(detail)));
     }
 
     public Detail findById(Long id) {
-        return Stream.of(detailRepository.findById(id).orElse(null)).filter(Objects::nonNull).map(DetailMapper::mapToDetail).findFirst().orElse(null);
+        return Stream.of(detailRepository.findById(id).orElse(null))
+                .filter(Objects::nonNull)
+                .map(DetailMapper::mapToDetail)
+                .findFirst()
+                .orElse(null);
     }
 
-    public Detail findByQr(String qr){
+    public List<Detail> findByQr(String qr){
 
-       FindUser<DetailEntity,String> findByQr = (qrCode) -> detailRepository.findAll().stream().filter(d->d.getIdBuyEntity().getQr().equals(qrCode)).findFirst().orElse(null);
+       FindUser<List<DetailEntity>,String> findByQr =
+               (qrCode) -> detailRepository.findAll().stream()
+               .filter(d->d.getIdBuyEntity().getQr().equals(qrCode))
+               .toList();
 
-       return Stream.of(findByQr.findBy(qr)).filter(Objects::nonNull).map(DetailMapper::mapToDetail).findFirst().orElse(null);
+       return findByQr.findBy(qr).stream().map(DetailMapper::mapToDetail).toList();
     }
 
 }
