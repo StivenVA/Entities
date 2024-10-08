@@ -31,7 +31,7 @@ public class CustomerRepoImpl implements UserRepositoryImplementation<Customer> 
 
         FindUser<UserEntity,String> findByUserId = (userId)-> customerRepository.findAll().stream().filter(userEntity -> userEntity.getUserId().equals(userId)).findFirst().orElseThrow(()->new NoBugsException("User not found", HttpStatus.NOT_FOUND));
 
-        UserEntity userEntity = findByUserId.findBy(customer.getCustomerId());
+        UserEntity userEntity = findByUserId.findBy(customer.getUserId());
 
 
         userEntity.setName((customer.getName() != null) ? customer.getName(): userEntity.getName());
