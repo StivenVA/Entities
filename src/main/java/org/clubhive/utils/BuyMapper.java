@@ -29,7 +29,7 @@ public class BuyMapper {
         buyDTO.setStateBuy(buy.getStateBuy());
         buyDTO.setReference(buy.getReference());
 
-        if(buy.getDetails() == null || buy.getDetails().isEmpty()){
+        if(buy.getDetails() != null && !buy.getDetails().isEmpty())
             buyDTO.setDetails(buy.getDetails().stream().map(DetailMapper::mapToDetailDTO).toList());
 
         return buyDTO;
@@ -62,7 +62,7 @@ public class BuyMapper {
         Buy buyModel = new Buy();
         buyModel.setId(buy.getId());
         buyModel.setQr(buy.getQr());
-        buyModel.setClaim(buy.getClaim());
+        buyModel.setClaim(buy.isClaim());
         buyModel.setOwner(buy.getOwner()==null?null:GenericMapper.map(buy.getOwner(), Customer.class));
         buyModel.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.entityToModel(buy.getIdPromoter()));
         buyModel.setStateBuy(buy.getStateBuy().name());
