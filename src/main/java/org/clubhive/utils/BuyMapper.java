@@ -25,7 +25,7 @@ public class BuyMapper {
         buyDTO.setQr(buy.getQr());
         buyDTO.setClaim(buy.getClaim());
         buyDTO.setOwner(GenericMapper.map(buy.getOwner(), UserResponseDTO.class));
-        buyDTO.setIdPromoter(PromoterMapper.modelToDTO(buy.getIdPromoter()));
+        buyDTO.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToDTO(buy.getIdPromoter()));
         buyDTO.setStateBuy(buy.getStateBuy());
         buyDTO.setReference(buy.getReference());
         buyDTO.setDetails(GenericMapper.mapList(buy.getDetails(), DetailDTO.class));
@@ -41,7 +41,7 @@ public class BuyMapper {
         buy.setQr(buyDTO.getQr());
         buy.setClaim(buyDTO.getClaim());
         buy.setOwner(GenericMapper.map(buyDTO.getOwner(), Customer.class));
-        buy.setIdPromoter(GenericMapper.map(buyDTO.getIdPromoter(), Promoter.class));
+        buy.setIdPromoter(buyDTO.getIdPromoter()==null?null:GenericMapper.map(buyDTO.getIdPromoter(), Promoter.class));
         buy.setStateBuy(buyDTO.getStateBuy());
         buy.setReference(buyDTO.getReference());
         buy.setDetails(GenericMapper.mapList(buyDTO.getDetails(), Detail.class));
@@ -74,7 +74,7 @@ public class BuyMapper {
         buyEntity.setQr(buy.getQr());
         buyEntity.setClaim(buy.getClaim());
         buyEntity.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
-        buyEntity.setIdPromoter(PromoterMapper.modelToEntity(buy.getIdPromoter()));
+        buyEntity.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToEntity(buy.getIdPromoter()));
         buyEntity.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
         buyEntity.setReference(buy.getReference());
         buyEntity.setTotal(buy.getTotal());

@@ -23,12 +23,12 @@ public class DetailRepository {
     private final DetailRepositoryJpa detailRepository;
 
     public Detail save(Detail detail) {
-
+        
         if (detail.getIdBuy() == null)
             throw new NoBugsException("Buy must not be null", HttpStatus.BAD_REQUEST);
-
+        
         DetailEntity detailEntity = new DetailEntity();
-
+        
         detailEntity.setIdBuyEntity(BuyMapper.mapToBuyEntity(detail.getIdBuy()));
         detailEntity.setQuantity(detail.getQuantity());
         detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
