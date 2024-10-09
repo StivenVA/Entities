@@ -24,7 +24,7 @@ public class BuyMapper {
         buyDTO.setId(buy.getId());
         buyDTO.setQr(buy.getQr());
         buyDTO.setClaim(buy.getClaim());
-        buyDTO.setOwner(GenericMapper.map(buy.getOwner(), UserResponseDTO.class));
+        buyDTO.setOwner(buy.getOwner() == null?null:GenericMapper.map(buy.getOwner(), UserResponseDTO.class));
         buyDTO.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToDTO(buy.getIdPromoter()));
         buyDTO.setStateBuy(buy.getStateBuy());
         buyDTO.setReference(buy.getReference());
