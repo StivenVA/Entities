@@ -12,5 +12,6 @@ import lombok.Setter;
 public class Customer extends User{
     private String phone;
     private String userId;
+    private String dni;
 }
 
