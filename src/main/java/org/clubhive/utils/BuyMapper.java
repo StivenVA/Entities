@@ -48,6 +48,10 @@ public class BuyMapper {
         buy.setTotal(buyDTO.getTotal());
         buy.setDate(buyDTO.getDate());
 
+        if (buyDTO.getDetails() !=null && !buyDTO.getDetails().isEmpty()){
+            buy.setDetails(buyDTO.getDetails().stream().map(DetailMapper::DetailDTOTOModel).toList());
+        }
+
         return buy;
     }
 

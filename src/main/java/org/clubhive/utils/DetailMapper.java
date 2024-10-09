@@ -1,6 +1,7 @@
 package org.clubhive.utils;
 
 import lombok.RequiredArgsConstructor;
+import org.clubhive.DTO.DetailDTO;
 import org.clubhive.entities.DetailEntity;
 import org.clubhive.model.Detail;
 import org.clubhive.repositories.jpa.DetailRepositoryJpa;
@@ -9,6 +10,15 @@ import org.clubhive.repositories.jpa.DetailRepositoryJpa;
 public class DetailMapper {
 
     private final DetailRepositoryJpa detailRepositoryJpa;
+
+    public static Detail DetailDTOTOModel(DetailDTO detailDTO){
+        Detail detail = new Detail();
+
+        detail.setQuantity(detailDTO.getQuantity());
+        detail.setIdTicket(TicketMapper.dtoToModel(detailDTO.getTicket()));
+
+        return detail;
+    }
 
 
     public static Detail mapToDetail(DetailEntity detail){
