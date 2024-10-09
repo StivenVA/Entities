@@ -43,4 +43,11 @@ public class DetailMapper {
         return detailEntity;
     }
 
+    public static DetailDTO mapToDetailDTO(Detail detail){
+        DetailDTO detailDTO = new DetailDTO();
+        detailDTO.setQuantity(detail.getQuantity());
+        detailDTO.setTicket(TicketMapper.modelToDTO(detail.getIdTicket()));
+        return detailDTO;
+    }
+
 }
