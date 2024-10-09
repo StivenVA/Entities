@@ -17,9 +17,7 @@ import java.util.ArrayList;
 
 @RequiredArgsConstructor
 public class BuyMapper {
-
-    private static final DetailRepository detailRepository;
-
+    
     public static BuyDTO mapToBuyDTO(Buy buy){
         BuyDTO buyDTO = new BuyDTO();
 
