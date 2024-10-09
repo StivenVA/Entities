@@ -3,6 +3,9 @@ package org.clubhive.repositories.implement;
 import FindUser.FindUser;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.BuyEntity;
+import org.clubhive.entities.BuyTicketStatus;
+import org.clubhive.entities.PromoterEntity;
+import org.clubhive.entities.UserEntity;
 import org.clubhive.model.Buy;
 import org.clubhive.repositories.jpa.BuyRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
@@ -19,7 +22,20 @@ public class BuyRepository {
     private final BuyRepositoryJpa buyRepositoryJpa;
 
     public Buy save(Buy buy) {
-        return Stream.of(buyRepositoryJpa.save(GenericMapper.map(buy,BuyEntity.class))).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+        
+        return Stream.of(new BuyEntity()).peek(buyToRegistry -> {
+            buyToRegistry.setClaim(false);
+            buyToRegistry.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
+            buyToRegistry.setQr(buy.getQr());
+            buyToRegistry.setReference(buy.getReference());
+            buyToRegistry.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
+            buyToRegistry.setIdPromoter(buy.getIdPromoter() == null? null : GenericMapper.map(buy.getIdPromoter(), PromoterEntity.class));
+            buyToRegistry.setTotal(buy.getTotal());
+            buyToRegistry.setDate(buy.getDate());
+
+        }).map(buyRepositoryJpa::save).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+
+
     }
 
     public Buy findById(Long id) {
