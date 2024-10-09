@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 @RequiredArgsConstructor
 public class BuyMapper {
-    
+
     public static BuyDTO mapToBuyDTO(Buy buy){
         BuyDTO buyDTO = new BuyDTO();
 
@@ -63,9 +63,8 @@ public class BuyMapper {
         buyModel.setReference(buy.getReference());
         buyModel.setTotal(buy.getTotal());
         buyModel.setDate(buy.getDate());
-
-
-        return new Buy(buy.getId(), buy.getQr(), buy.isClaim(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null,buy.getTotal(),buy.getDate());
+        
+        return buyModel;
     }
 
     public static BuyEntity mapToBuyEntity(Buy buy){
