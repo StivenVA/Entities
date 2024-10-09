@@ -8,6 +8,7 @@ import org.clubhive.model.Detail;
 import org.clubhive.repositories.jpa.DetailRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
 import org.clubhive.utils.DetailMapper;
+import org.clubhive.utils.EventMapper;
 import org.clubhive.utils.TicketMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ import java.util.stream.Stream;
 public class DetailRepository {
 
     private final DetailRepositoryJpa detailRepository;
+    private final EventRepository eventRepository;
 
     public Detail save(Detail detail) {
         
@@ -32,7 +34,9 @@ public class DetailRepository {
         detailEntity.setIdBuyEntity(BuyMapper.mapToBuyEntity(detail.getIdBuy()));
         detailEntity.setQuantity(detail.getQuantity());
         detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
-        
+
+        detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(detail.getIdTicket().getIdEvent()))));
+
         return DetailMapper
                 .mapToDetail(detailRepository.save(detailEntity));
     }

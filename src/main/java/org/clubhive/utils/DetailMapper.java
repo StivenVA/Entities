@@ -22,6 +22,13 @@ public class DetailMapper {
 
 
     public static Detail mapToDetail(DetailEntity detail){
+
+        Detail detailModel = new Detail();
+        detailModel.setId(detail.getId());
+        detailModel.setQuantity(detail.getQuantity());
+        detailModel.setIdTicket(TicketMapper.entityToModel(detail.getIdTicket()));
+
+
         return new Detail(detail.getId(), TicketMapper.entityToModel(detail.getIdTicket()), detail.getQuantity(),null);
     }
 
