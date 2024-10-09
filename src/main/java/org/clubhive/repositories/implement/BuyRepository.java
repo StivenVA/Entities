@@ -6,6 +6,7 @@ import org.clubhive.entities.BuyEntity;
 import org.clubhive.model.Buy;
 import org.clubhive.repositories.jpa.BuyRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
+import org.clubhive.utils.GenericMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class BuyRepository {
     private final BuyRepositoryJpa buyRepositoryJpa;
 
     public Buy save(Buy buy) {
-        return Stream.of(buyRepositoryJpa.save(BuyMapper.mapToBuyEntity(buy))).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+        return Stream.of(buyRepositoryJpa.save(GenericMapper.map(buy,BuyEntity.class))).map(BuyMapper::mapToBuy).findFirst().orElse(null);
     }
 
     public Buy findById(Long id) {
