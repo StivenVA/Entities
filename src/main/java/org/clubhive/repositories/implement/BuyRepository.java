@@ -1,6 +1,7 @@
 package org.clubhive.repositories.implement;
 
 import FindUser.FindUser;
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.BuyEntity;
 import org.clubhive.entities.BuyTicketStatus;
@@ -10,6 +11,7 @@ import org.clubhive.model.Buy;
 import org.clubhive.repositories.jpa.BuyRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
 import org.clubhive.utils.GenericMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
@@ -22,7 +24,10 @@ public class BuyRepository {
     private final BuyRepositoryJpa buyRepositoryJpa;
 
     public Buy save(Buy buy) {
-        
+
+        if (buy.getOwner() == null)
+            throw new NoBugsException("Owner must not be null", HttpStatus.BAD_REQUEST);
+
         return Stream.of(new BuyEntity()).peek(buyToRegistry -> {
             buyToRegistry.setClaim(false);
             buyToRegistry.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));

@@ -1,5 +1,6 @@
 package org.clubhive.utils;
 
+import lombok.RequiredArgsConstructor;
 import org.clubhive.DTO.BuyDTO;
 import org.clubhive.DTO.DetailDTO;
 import org.clubhive.DTO.UserResponseDTO;
@@ -10,8 +11,14 @@ import org.clubhive.model.Buy;
 import org.clubhive.model.Customer;
 import org.clubhive.model.Detail;
 import org.clubhive.model.Promoter;
+import org.clubhive.repositories.implement.DetailRepository;
 
+import java.util.ArrayList;
+
+@RequiredArgsConstructor
 public class BuyMapper {
+
+    private static final DetailRepository detailRepository;
 
     public static BuyDTO mapToBuyDTO(Buy buy){
         BuyDTO buyDTO = new BuyDTO();
@@ -47,6 +54,19 @@ public class BuyMapper {
     }
 
     public static Buy mapToBuy(BuyEntity buy){
+
+        Buy buyModel = new Buy();
+        buyModel.setId(buy.getId());
+        buyModel.setQr(buy.getQr());
+        buyModel.setClaim(buy.isClaim());
+        buyModel.setOwner(GenericMapper.map(buy.getOwner(), Customer.class));
+        buyModel.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.entityToModel(buy.getIdPromoter()));
+        buyModel.setStateBuy(buy.getStateBuy().name());
+        buyModel.setReference(buy.getReference());
+        buyModel.setTotal(buy.getTotal());
+        buyModel.setDate(buy.getDate());
+
+
         return new Buy(buy.getId(), buy.getQr(), buy.isClaim(), GenericMapper.map(buy.getOwner(), Customer.class), PromoterMapper.entityToModel(buy.getIdPromoter()), buy.getStateBuy().name(), buy.getReference(),null,buy.getTotal(),buy.getDate());
     }
 
