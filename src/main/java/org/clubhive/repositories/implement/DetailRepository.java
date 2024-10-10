@@ -48,7 +48,7 @@ public class DetailRepository {
 
         ticket.setQua(quantityLeft);
 
-        System.out.println(ticket.getQua());
+        System.out.println(ticket.getQua()); 
 
         ticketRepository.save(ticket);
 
