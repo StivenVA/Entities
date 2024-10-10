@@ -18,4 +18,5 @@ public class Ticket {
     private int qua;
     private String idEvent;
     private Boolean state;
+    private Integer available;
 }

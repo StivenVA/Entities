@@ -31,6 +31,9 @@ public class TicketEntity {
     @Column(name = "qua_ticket")
     private Integer qua;
 
+    @Column(name = "available_ticket")
+    private Integer available;
+
     @JoinColumn(name = "id_event", nullable = false)
     @ManyToOne
     private EventEntity eventId;

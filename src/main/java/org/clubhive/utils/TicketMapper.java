@@ -28,15 +28,15 @@ public class TicketMapper {
     }
 
     public static Ticket dtoToModel(TicketDTO ticketDTO){
-        return new GenericMapper().map(ticketDTO, Ticket.class);
+        return GenericMapper.map(ticketDTO, Ticket.class);
     }
 
     public static TicketDTO modelToDTO(Ticket ticket){
-        return new GenericMapper().map(ticket, TicketDTO.class);
+        return GenericMapper.map(ticket, TicketDTO.class);
     }
 
     public static Ticket entityToModel(TicketEntity ticketEntity){
-        Ticket ticket = new GenericMapper().map(ticketEntity, Ticket.class);
+        Ticket ticket = GenericMapper.map(ticketEntity, Ticket.class);
         ticket.setIdEvent(String.valueOf(ticketEntity.getEventId().getId()));
 
         return ticket;
@@ -51,6 +51,7 @@ public class TicketMapper {
         ticketEntity.setPrice(ticket.getPrice());
         ticketEntity.setQua(ticket.getQua());
         ticketEntity.setState(ticket.getState());
+        ticketEntity.setAvailable(ticket.getAvailable());
         return ticketEntity;
     }
 }

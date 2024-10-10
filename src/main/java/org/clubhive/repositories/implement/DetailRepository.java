@@ -42,9 +42,6 @@ public class DetailRepository {
 
         Ticket ticket = ticketRepository.findById(detail.getIdTicket().getId());
 
-        if (ticket.getQua() < detail.getQuantity() || ticket.getQua() == 0)
-            throw new NoBugsException("Quantity not available", HttpStatus.BAD_REQUEST);
-
         detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(ticket.getIdEvent()))));
 
         return DetailMapper

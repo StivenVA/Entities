@@ -18,4 +18,5 @@ public class TicketDTO {
     private Integer qua;
     private String eventId;
     private Boolean state;
+    private Integer available;
 }
