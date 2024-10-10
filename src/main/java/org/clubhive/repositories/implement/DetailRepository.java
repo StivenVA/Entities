@@ -44,7 +44,11 @@ public class DetailRepository {
 
         detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(ticket.getIdEvent()))));
 
-        ticket.setQua(ticket.getQua() - detail.getQuantity());
+        int quantityLeft = ticket.getQua() -  detail.getQuantity();
+
+        ticket.setQua(quantityLeft);
+
+        System.out.println(ticket.getQua());
 
         ticketRepository.save(ticket);
 
