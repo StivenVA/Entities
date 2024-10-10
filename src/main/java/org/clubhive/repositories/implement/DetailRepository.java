@@ -51,11 +51,15 @@ public class DetailRepository {
 
         ticket.setQua(quantityLeft);
 
+        System.out.println(ticket.getQua());
+
         ticket = ticketRepository.save(ticket);
+
+        System.out.println(ticket.getQua());
 
         Detail detailSaved = DetailMapper
                 .mapToDetail(detailRepository.save(detailEntity));
-        
+
         detailSaved.setIdTicket(ticket);
 
         return detailSaved;
