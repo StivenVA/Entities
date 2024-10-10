@@ -51,11 +51,14 @@ public class DetailRepository {
 
         ticket.setQua(quantityLeft);
 
-        ticketRepository.save(ticket);
-        
-        detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
-        return DetailMapper
+        ticket = ticketRepository.save(ticket);
+
+        Detail detailSaved = DetailMapper
                 .mapToDetail(detailRepository.save(detailEntity));
+        
+        detailSaved.setIdTicket(ticket);
+
+        return detailSaved;
     }
 
     public Detail findById(Long id) {
