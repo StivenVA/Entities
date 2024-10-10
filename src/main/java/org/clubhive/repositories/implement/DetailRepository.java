@@ -42,18 +42,18 @@ public class DetailRepository {
 
         Ticket ticket = ticketRepository.findById(detail.getIdTicket().getId());
 
+        if (ticket.getQua() < detail.getQuantity() || ticket.getQua() == 0)
+            throw new NoBugsException("Quantity not available", HttpStatus.BAD_REQUEST);
+
         detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(ticket.getIdEvent()))));
 
         int quantityLeft = ticket.getQua() -  detail.getQuantity();
 
         ticket.setQua(quantityLeft);
 
-        System.out.println(detail.getQuantity());
-        System.out.println("Quantity left: " + quantityLeft);
-        System.out.println(ticket.getQua());
-
         ticketRepository.save(ticket);
-
+        
+        detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
         return DetailMapper
                 .mapToDetail(detailRepository.save(detailEntity));
     }
