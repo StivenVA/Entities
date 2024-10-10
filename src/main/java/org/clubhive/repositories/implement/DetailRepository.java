@@ -40,7 +40,7 @@ public class DetailRepository {
         detailEntity.setQuantity(detail.getQuantity());
         detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
 
-        Ticket ticket = detail.getIdTicket();
+        Ticket ticket = ticketRepository.findById(detail.getIdTicket().getId());
 
         detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(ticket.getIdEvent()))));
 
@@ -48,7 +48,9 @@ public class DetailRepository {
 
         ticket.setQua(quantityLeft);
 
-        System.out.println(ticket.getQua()); 
+        System.out.println(detail.getQuantity());
+        System.out.println("Quantity left: " + quantityLeft);
+        System.out.println(ticket.getQua());
 
         ticketRepository.save(ticket);
 
