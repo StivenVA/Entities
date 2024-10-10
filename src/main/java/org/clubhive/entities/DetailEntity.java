@@ -16,8 +16,9 @@ public class DetailEntity {
 
     @Id
     @Column(name = "id_details")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    
     @JoinColumn(name = "id_ticket")
     @ManyToOne(fetch = FetchType.EAGER)
     private TicketEntity idTicket;
