@@ -37,7 +37,7 @@ public class BuyRepository {
             buyToRegistry.setIdPromoter(buy.getIdPromoter() == null? null : GenericMapper.map(buy.getIdPromoter(), PromoterEntity.class));
             buyToRegistry.setTotal(buy.getTotal());
             buyToRegistry.setDate(buy.getDate());
-
+        
         }).map(buyRepositoryJpa::save).map(BuyMapper::mapToBuy).findFirst().orElse(null);
 
 

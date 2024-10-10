@@ -2,9 +2,11 @@ package org.clubhive.repositories.implement;
 
 import FindUser.FindUser;
 import exceptions.NoBugsException;
+import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import org.clubhive.entities.DetailEntity;
 import org.clubhive.model.Detail;
+import org.clubhive.model.Ticket;
 import org.clubhive.repositories.jpa.DetailRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
 import org.clubhive.utils.DetailMapper;
@@ -12,6 +14,7 @@ import org.clubhive.utils.EventMapper;
 import org.clubhive.utils.TicketMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +26,9 @@ public class DetailRepository {
 
     private final DetailRepositoryJpa detailRepository;
     private final EventRepository eventRepository;
+    private final TicketRepository ticketRepository;
 
+    @Transactional
     public Detail save(Detail detail) {
         
         if (detail.getIdBuy() == null)
@@ -35,7 +40,13 @@ public class DetailRepository {
         detailEntity.setQuantity(detail.getQuantity());
         detailEntity.setIdTicket(TicketMapper.modelToEntity(detail.getIdTicket()));
 
-        detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(detail.getIdTicket().getIdEvent()))));
+        Ticket ticket = detail.getIdTicket();
+
+        detailEntity.getIdTicket().setEventId(EventMapper.mapEventToEventEntity(eventRepository.findById(Long.valueOf(ticket.getIdEvent()))));
+
+        ticket.setQua(ticket.getQua() - detail.getQuantity());
+
+        ticketRepository.save(ticket);
 
         return DetailMapper
                 .mapToDetail(detailRepository.save(detailEntity));

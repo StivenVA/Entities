@@ -28,6 +28,8 @@ public class BuyMapper {
         buyDTO.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToDTO(buy.getIdPromoter()));
         buyDTO.setStateBuy(buy.getStateBuy());
         buyDTO.setReference(buy.getReference());
+        buyDTO.setTotal(buy.getTotal());
+        buyDTO.setDate(buy.getDate());
 
         if(buy.getDetails() != null && !buy.getDetails().isEmpty())
             buyDTO.setDetails(buy.getDetails().stream().map(DetailMapper::mapToDetailDTO).toList());
