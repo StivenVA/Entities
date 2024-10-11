@@ -29,6 +29,7 @@ public class BuyRepository {
             throw new NoBugsException("Owner must not be null", HttpStatus.BAD_REQUEST);
 
         return Stream.of(new BuyEntity()).peek(buyToRegistry -> {
+            buyToRegistry.setId(buy.getId() == null ? 0 : buy.getId());
             buyToRegistry.setClaim(false);
             buyToRegistry.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
             buyToRegistry.setQr(buy.getQr());

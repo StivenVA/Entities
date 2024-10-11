@@ -9,6 +9,10 @@ import java.util.List;
 
 public class PromoterMapper {
 
+    public static Promoter dtoToModel(PromoterDTO promoterDTO) {
+        return new Promoter(promoterDTO.getId(), promoterDTO.getCode(), promoterDTO.getEventId());
+    }
+
     public static Promoter entityToModel(PromoterEntity promoterEntity) {
         if (promoterEntity.getEventId() != null) {
             return new Promoter(promoterEntity.getId(), promoterEntity.getCode(), promoterEntity.getEventId().getId());
