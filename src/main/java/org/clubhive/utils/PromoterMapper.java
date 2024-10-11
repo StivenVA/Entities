@@ -10,7 +10,7 @@ import java.util.List;
 public class PromoterMapper {
 
     public static Promoter dtoToModel(PromoterDTO promoterDTO) {
-        return new Promoter(promoterDTO.getId(), promoterDTO.getCode(), promoterDTO.getEventId());
+        return GenericMapper.map(promoterDTO, Promoter.class);
     }
 
     public static Promoter entityToModel(PromoterEntity promoterEntity) {
