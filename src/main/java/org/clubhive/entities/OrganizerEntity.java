@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "organizers", uniqueConstraints = @UniqueConstraint(columnNames = "organizerId"))
+@Table(name = "organizers", uniqueConstraints = @UniqueConstraint(columnNames = {"organizerId", "email"}))
 @Entity
 @Data
 @AllArgsConstructor
