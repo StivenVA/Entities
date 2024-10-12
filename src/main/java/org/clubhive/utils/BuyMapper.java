@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.clubhive.DTO.BuyDTO;
 import org.clubhive.DTO.DetailDTO;
 import org.clubhive.DTO.UserResponseDTO;
+import org.clubhive.DTO.auth.CustomerResponseDTO;
 import org.clubhive.entities.BuyEntity;
 import org.clubhive.entities.BuyTicketStatus;
 import org.clubhive.entities.UserEntity;
@@ -24,7 +25,7 @@ public class BuyMapper {
         buyDTO.setId(buy.getId());
         buyDTO.setQr(buy.getQr());
         buyDTO.setClaim(buy.getClaim());
-        buyDTO.setOwner(buy.getOwner() == null?null:GenericMapper.map(buy.getOwner(), UserResponseDTO.class));
+        buyDTO.setOwner(buy.getOwner() == null?null:GenericMapper.map(buy.getOwner(), CustomerResponseDTO.class));
         buyDTO.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToDTO(buy.getIdPromoter()));
         buyDTO.setStateBuy(buy.getStateBuy());
         buyDTO.setReference(buy.getReference());
