@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.clubhive.DTO.auth.CustomerResponseDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,7 +18,7 @@ public class BuyDTO {
     private Long id;
     private String qr;
     private Boolean claim;
-    private UserResponseDTO owner;
+    private CustomerResponseDTO owner;
     private PromoterDTO idPromoter;
     private String stateBuy;
     private String reference;
