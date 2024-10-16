@@ -52,6 +52,7 @@ public class BuyMapper {
         buy.setDetails(GenericMapper.mapList(buyDTO.getDetails(), Detail.class));
         buy.setTotal(buyDTO.getTotal());
         buy.setDate(buyDTO.getDate());
+        buy.setServiceFee(buyDTO.getServiceFee());
 
         if (buyDTO.getDetails() !=null && !buyDTO.getDetails().isEmpty()){
             buy.setDetails(buyDTO.getDetails().stream().map(DetailMapper::DetailDTOTOModel).toList());
@@ -72,6 +73,7 @@ public class BuyMapper {
         buyModel.setReference(buy.getReference());
         buyModel.setTotal(buy.getTotal());
         buyModel.setDate(buy.getDate());
+        buyModel.setServiceFee(buy.getServiceFee());
         
         return buyModel;
     }
@@ -88,6 +90,7 @@ public class BuyMapper {
         buyEntity.setReference(buy.getReference());
         buyEntity.setTotal(buy.getTotal());
         buyEntity.setDate(buy.getDate());
+        buyEntity.setServiceFee(buy.getServiceFee());
 
         return buyEntity;
     }
