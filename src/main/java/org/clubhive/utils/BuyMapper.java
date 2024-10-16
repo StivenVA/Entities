@@ -1,18 +1,19 @@
 package org.clubhive.utils;
 
+import exceptions.NoBugsException;
 import lombok.RequiredArgsConstructor;
-import org.clubhive.DTO.BuyDTO;
-import org.clubhive.DTO.DetailDTO;
-import org.clubhive.DTO.UserResponseDTO;
+import org.clubhive.DTO.*;
 import org.clubhive.DTO.auth.CustomerResponseDTO;
 import org.clubhive.entities.BuyEntity;
 import org.clubhive.entities.BuyTicketStatus;
+import org.clubhive.entities.PromoterEntity;
 import org.clubhive.entities.UserEntity;
 import org.clubhive.model.Buy;
 import org.clubhive.model.Customer;
 import org.clubhive.model.Detail;
 import org.clubhive.model.Promoter;
 import org.clubhive.repositories.implement.DetailRepository;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 
@@ -80,17 +81,47 @@ public class BuyMapper {
     public static BuyEntity mapToBuyEntity(Buy buy){
 
         BuyEntity buyEntity = new BuyEntity();
-        buyEntity.setId(buy.getId());
+        buyEntity.setId(buy.getId() == null ? 0 : buy.getId());
         buyEntity.setQr(buy.getQr());
-        buyEntity.setClaim(buy.getClaim());
+        buyEntity.setClaim(buy.getClaim() != null && buy.getClaim());
         buyEntity.setOwner(buy.getOwner()==null?null:GenericMapper.map(buy.getOwner(), UserEntity.class));
-        buyEntity.setIdPromoter(buy.getIdPromoter()==null?null:PromoterMapper.modelToEntity(buy.getIdPromoter()));
+        buyEntity.setIdPromoter(buy.getIdPromoter() == null? null : GenericMapper.map(buy.getIdPromoter(), PromoterEntity.class));
         buyEntity.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
         buyEntity.setReference(buy.getReference());
         buyEntity.setTotal(buy.getTotal());
         buyEntity.setDate(buy.getDate());
 
         return buyEntity;
+    }
+
+    public static BuyCustomerDTO mapToBuyCustomer(Buy buy){
+        if (buy.getDetails() == null || buy.getDetails().isEmpty())
+            throw new NoBugsException("There are not tickets", HttpStatus.BAD_REQUEST);
+
+        BuyCustomerDTO buyCustomerDTO = new BuyCustomerDTO();
+        buyCustomerDTO.setQr(buy.getQr());
+        buyCustomerDTO.setClaim(buy.getClaim());
+        buyCustomerDTO.setStateBuy(buy.getStateBuy());
+        buyCustomerDTO.setReference(buy.getReference());
+        buyCustomerDTO.setTotal(buy.getTotal());
+        buyCustomerDTO.setDate(buy.getDate());
+        buyCustomerDTO.setServiceFee(buy.getServiceFee());
+        buyCustomerDTO.setOwner(buy.getOwner()==null?null:GenericMapper.map(buy.getOwner(), CustomerDTO.class));
+
+        buyCustomerDTO.setTickets(buy.getDetails().stream().map(detail->{
+
+            TicketSaleDTO ticketSaleDTO = new TicketSaleDTO();
+            ticketSaleDTO.setName(detail.getIdTicket().getName());
+            ticketSaleDTO.setPrice(detail.getIdTicket().getPrice());
+            ticketSaleDTO.setQuantity(detail.getQuantity());
+            ticketSaleDTO.setDesc(detail.getIdTicket().getDesc());
+
+            return ticketSaleDTO;
+        }).toList());
+
+        buyCustomerDTO.setPromoter(buy.getIdPromoter() == null ? null : PromoterMapper.modelToDTO(buy.getIdPromoter()));
+
+        return buyCustomerDTO;
     }
 
 }

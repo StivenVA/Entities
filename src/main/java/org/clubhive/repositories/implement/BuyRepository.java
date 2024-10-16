@@ -30,20 +30,7 @@ public class BuyRepository {
         if (buy.getOwner() == null)
             throw new NoBugsException("Owner must not be null", HttpStatus.BAD_REQUEST);
 
-        return Stream.of(new BuyEntity()).peek(buyToRegistry -> {
-            buyToRegistry.setId(buy.getId() == null ? 0 : buy.getId());
-            buyToRegistry.setClaim(buy.getClaim() != null && buy.getClaim());
-            buyToRegistry.setStateBuy(BuyTicketStatus.valueOf(buy.getStateBuy()));
-            buyToRegistry.setQr(buy.getQr());
-            buyToRegistry.setReference(buy.getReference());
-            buyToRegistry.setOwner(GenericMapper.map(buy.getOwner(), UserEntity.class));
-            buyToRegistry.setIdPromoter(buy.getIdPromoter() == null? null : GenericMapper.map(buy.getIdPromoter(), PromoterEntity.class));
-            buyToRegistry.setTotal(buy.getTotal());
-            buyToRegistry.setDate(buy.getDate());
-        
-        }).map(buyRepositoryJpa::save).map(BuyMapper::mapToBuy).findFirst().orElse(null);
-
-
+        return Stream.of(BuyMapper.mapToBuyEntity(buy)).map(buyRepositoryJpa::save).map(BuyMapper::mapToBuy).findFirst().orElseThrow(() -> new NoBugsException("Error saving buy", HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     public Buy findById(Long id) {
