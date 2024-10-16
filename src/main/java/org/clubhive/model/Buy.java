@@ -24,4 +24,5 @@ public class Buy {
         private List<Detail> details;
         private Double total;
         private Timestamp date;
+        private double ServiceFee;
 }

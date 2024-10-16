@@ -8,12 +8,14 @@ import org.clubhive.entities.BuyTicketStatus;
 import org.clubhive.entities.PromoterEntity;
 import org.clubhive.entities.UserEntity;
 import org.clubhive.model.Buy;
+import org.clubhive.model.Customer;
 import org.clubhive.repositories.jpa.BuyRepositoryJpa;
 import org.clubhive.utils.BuyMapper;
 import org.clubhive.utils.GenericMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -52,5 +54,9 @@ public class BuyRepository {
         FindUser<BuyEntity,String> findByQr = (qrCode) -> buyRepositoryJpa.findAll().stream().filter(b -> b.getQr().equals(qrCode)).findFirst().orElse(null);
 
         return Stream.of(findByQr.findBy(qr)).filter(Objects::nonNull).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+    }
+
+    public List<Buy> findBuyByOwner(Customer customer) {
+        return buyRepositoryJpa.findByOwner(GenericMapper.map(customer, UserEntity.class)).stream().map(BuyMapper::mapToBuy).toList();
     }
 }

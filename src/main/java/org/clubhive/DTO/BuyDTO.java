@@ -25,4 +25,5 @@ public class BuyDTO {
     private Double total;
     private List<DetailDTO> details;
     private Timestamp date;
+    private double serviceFee;
 }

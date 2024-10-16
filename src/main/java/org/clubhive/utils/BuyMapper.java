@@ -31,6 +31,7 @@ public class BuyMapper {
         buyDTO.setReference(buy.getReference());
         buyDTO.setTotal(buy.getTotal());
         buyDTO.setDate(buy.getDate());
+        buyDTO.setServiceFee(buy.getServiceFee());
 
         if(buy.getDetails() != null && !buy.getDetails().isEmpty())
             buyDTO.setDetails(buy.getDetails().stream().map(DetailMapper::mapToDetailDTO).toList());

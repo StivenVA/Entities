@@ -47,4 +47,7 @@ public class BuyEntity {
 
     @Column(name = "date_buy")
     private Timestamp date;
+
+    @Column(name = "service_fee", nullable = false)
+    private double serviceFee;
 }
