@@ -16,8 +16,6 @@ import org.clubhive.repositories.implement.DetailRepository;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
-
-@RequiredArgsConstructor
 public class BuyMapper {
 
     public static BuyDTO mapToBuyDTO(Buy buy){
