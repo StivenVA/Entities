@@ -62,11 +62,7 @@ public class DetailRepository {
 
     public List<Detail> findByQr(String qr){
 
-       FindUser<List<DetailEntity>,String> findByQr =
-               (qrCode) -> detailRepository.findAll().stream()
-               .filter(d->d.getIdBuyEntity().getQr().equals(qrCode)).toList();
-
-       return findByQr.findBy(qr).stream().map(DetailMapper::mapToDetail).toList();
+       return detailRepository.findByQR(qr).stream().map(DetailMapper::mapToDetail).toList();
     }
 
     public Map<String,Integer> getPromotersDashboard(Long idEvent){

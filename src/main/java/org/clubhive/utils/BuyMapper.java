@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class BuyMapper {
 
     public static BuyDTO mapToBuyDTO(Buy buy){
+        if (buy == null) return null;
+
         BuyDTO buyDTO = new BuyDTO();
 
         buyDTO.setId(buy.getId());
@@ -39,6 +41,7 @@ public class BuyMapper {
     }
 
     public static Buy mapToBuy(BuyDTO buyDTO){
+        if (buyDTO == null) return null;
 
         Buy buy = new Buy();
 
@@ -63,6 +66,8 @@ public class BuyMapper {
 
     public static Buy mapToBuy(BuyEntity buy){
 
+        if (buy == null) return null;
+
         Buy buyModel = new Buy();
         buyModel.setId(buy.getId());
         buyModel.setQr(buy.getQr());
@@ -80,6 +85,8 @@ public class BuyMapper {
 
     public static BuyEntity mapToBuyEntity(Buy buy){
 
+        if (buy == null) return null;
+
         BuyEntity buyEntity = new BuyEntity();
         buyEntity.setId(buy.getId() == null ? 0 : buy.getId());
         buyEntity.setQr(buy.getQr());
@@ -96,6 +103,8 @@ public class BuyMapper {
     }
 
     public static BuyCustomerDTO mapToBuyCustomer(Buy buy){
+        if (buy == null) return null;
+
         if (buy.getDetails() == null || buy.getDetails().isEmpty())
             throw new NoBugsException("There are not tickets", HttpStatus.BAD_REQUEST);
 

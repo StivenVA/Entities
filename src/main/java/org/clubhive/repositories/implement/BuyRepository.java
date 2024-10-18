@@ -34,16 +34,14 @@ public class BuyRepository {
     }
 
     public Buy findById(Long id) {
-        return Stream.of(buyRepositoryJpa.findById(id).orElse(null)).filter(Objects::nonNull).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+        return BuyMapper.mapToBuy(buyRepositoryJpa.findById(id).orElse(null));
     }
 
     public Buy findByQr(String qr) {
-        FindUser<BuyEntity,String> findByQr = (qrCode) -> buyRepositoryJpa.findAll().stream().filter(b -> b.getQr().equals(qrCode)).findFirst().orElse(null);
-
-        return Stream.of(findByQr.findBy(qr)).filter(Objects::nonNull).map(BuyMapper::mapToBuy).findFirst().orElse(null);
+        return BuyMapper.mapToBuy(buyRepositoryJpa.findByQr(qr));
     }
 
-    public List<Buy> findBuyByOwner(Customer customer) {
-        return buyRepositoryJpa.findByOwner(GenericMapper.map(customer, UserEntity.class)).stream().map(BuyMapper::mapToBuy).toList();
+    public List<Buy> findBuyByOwner(String idUser) {
+        return buyRepositoryJpa.findByOwner(idUser).parallelStream().map(BuyMapper::mapToBuy).toList();
     }
 }
