@@ -1,8 +1,12 @@
 package org.clubhive.entities;
 
 public enum BuyTicketStatus {
-    APROBADA,
-    CANJEADA,
-    RECHAZADA,
-    PENDIENTE
+    APPROVED,
+    DECLINED,
+    PENDING,
+    ERROR,
+    EXPIRED,
+    REFUNDED,
+    VOIDED,
+
 }
