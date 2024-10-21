@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 @Repository
 public class OrganizerRepoImpl implements UserRepositoryImplementation<Organizer> {
@@ -44,16 +46,20 @@ public class OrganizerRepoImpl implements UserRepositoryImplementation<Organizer
     @Override
     public Organizer update(Organizer organizer){
 
-        OrganizerEntity organizerEntity = organizerRepository.findByOrganizerId(organizer.getOrganizerId());
+        Organizer organizerEntity = findById(organizer.getId());
 
         organizerEntity.setUrlPay((organizer.getUrlPay() != null) ? organizer.getUrlPay() : organizerEntity.getUrlPay());
         organizerEntity.setName((organizer.getName() != null) ? organizer.getName() : organizerEntity.getName());
 
-        return GenericMapper.map(organizerRepository.save(organizerEntity),Organizer.class);
+        return save(organizerEntity);
     }
 
     public Organizer findById(Long id){
 
         return GenericMapper.map(organizerRepository.findById(id).orElseThrow(()->new NoBugsException("Organizer not found", HttpStatus.NOT_FOUND)),Organizer.class);
+    }
+
+    public Organizer findByOrganizerId(String organizerId){
+        return Stream.of(organizerRepository.findByOrganizerId(organizerId)).filter(Objects::nonNull).map(org -> GenericMapper.map(org,Organizer.class)).findAny().orElseThrow(()->new NoBugsException("Organizer not found", HttpStatus.NOT_FOUND));
     }
 }
