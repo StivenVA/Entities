@@ -26,7 +26,7 @@ public class EventRepository {
     private final CityRepositoryJpa cityRepositoryJpa;
 
     public Event save(Event event) {
-        Organizer organizer = organizerRepository.findById(Long.parseLong(event.getOrgnzId()));
+        Organizer organizer = organizerRepository.findByOrganizerId(event.getOrgnzId());
         EventEntity eventEntity = EventMapper.mapEventToEventEntity(event);
         eventEntity.setOrgnzId(GenericMapper.map(organizer, OrganizerEntity.class));
         eventEntity.setCity(cityRepositoryJpa.findById(event.getCityId()).orElseThrow());
